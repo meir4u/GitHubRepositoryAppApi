@@ -1,0 +1,72 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34607.119
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{1D1B1FC5-1E8F-42C9-B128-BC0B72F3A4F2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{971E48BC-DBF4-49D8-A188-C984A62B760E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitHubRepositoryApp.Api", "Api\GitHubRepositoryApp.Api\GitHubRepositoryApp.Api.csproj", "{38FC2ED3-5876-4AB9-8F57-3DFE766448B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitHubRepositoryApp.DL", "Api\GitHubRepositoryApp.DL\GitHubRepositoryApp.DL.csproj", "{073E261B-02AC-46CD-A5B1-957DDAD629B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitHubRepositoryApp.BL", "Api\GitHubRepositoryApp.BL\GitHubRepositoryApp.BL.csproj", "{D369927D-D8DA-4441-8B2F-A67D775E219A}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Client(1)", "Client\", "{6CC15184-5C6F-4771-981D-D3B0AB51E4A3}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_60191"
+		Debug.AspNetCompiler.PhysicalPath = "Client\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_60191\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_60191"
+		Release.AspNetCompiler.PhysicalPath = "Client\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_60191\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "60191"
+		SlnRelativePath = "Client\"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{38FC2ED3-5876-4AB9-8F57-3DFE766448B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38FC2ED3-5876-4AB9-8F57-3DFE766448B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38FC2ED3-5876-4AB9-8F57-3DFE766448B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38FC2ED3-5876-4AB9-8F57-3DFE766448B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{073E261B-02AC-46CD-A5B1-957DDAD629B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{073E261B-02AC-46CD-A5B1-957DDAD629B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{073E261B-02AC-46CD-A5B1-957DDAD629B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{073E261B-02AC-46CD-A5B1-957DDAD629B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D369927D-D8DA-4441-8B2F-A67D775E219A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D369927D-D8DA-4441-8B2F-A67D775E219A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D369927D-D8DA-4441-8B2F-A67D775E219A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D369927D-D8DA-4441-8B2F-A67D775E219A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CC15184-5C6F-4771-981D-D3B0AB51E4A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CC15184-5C6F-4771-981D-D3B0AB51E4A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CC15184-5C6F-4771-981D-D3B0AB51E4A3}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CC15184-5C6F-4771-981D-D3B0AB51E4A3}.Release|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{38FC2ED3-5876-4AB9-8F57-3DFE766448B2} = {1D1B1FC5-1E8F-42C9-B128-BC0B72F3A4F2}
+		{073E261B-02AC-46CD-A5B1-957DDAD629B9} = {1D1B1FC5-1E8F-42C9-B128-BC0B72F3A4F2}
+		{D369927D-D8DA-4441-8B2F-A67D775E219A} = {1D1B1FC5-1E8F-42C9-B128-BC0B72F3A4F2}
+		{6CC15184-5C6F-4771-981D-D3B0AB51E4A3} = {971E48BC-DBF4-49D8-A188-C984A62B760E}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E5A26CF8-BE3E-4313-9D5B-ED368B118DEB}
+	EndGlobalSection
+EndGlobal
