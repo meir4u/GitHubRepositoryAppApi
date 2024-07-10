@@ -1,0 +1,15 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/Api/GitHubRepositoryApp.Api/.vs
+/Api/GitHubRepositoryApp.Api/bin
+/.vs
+/Api/GitHubRepositoryApp.Api/obj
+/Api/GitHubRepositoryApp.BL/.vs
+/Api/GitHubRepositoryApp.BL/bin/Debug
+/Api/GitHubRepositoryApp.BL/obj
+/Api/GitHubRepositoryApp.DL/.vs
+/Api/GitHubRepositoryApp.DL/bin/Debug
+/Api/GitHubRepositoryApp.DL/obj
+/packages
