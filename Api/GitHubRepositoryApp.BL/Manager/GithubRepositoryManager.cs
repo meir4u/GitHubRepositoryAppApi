@@ -2,6 +2,7 @@
 using GitHubRepositoryApp.BL.Interface;
 using GitHubRepositoryApp.BL.Mapper;
 using GitHubRepositoryApp.DL.Entity;
+using GitHubRepositoryApp.DL.Interface;
 using GitHubRepositoryApp.DL.Service;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace GitHubRepositoryApp.BL.Manager
 {
     public class GithubRepositoryManager : IGithubRepositoryManager
     {
-        private GithubRepositoryService _githubRepositoryService;
+        private IGithubRepositoryService _githubRepositoryService;
         private GithubRepositoryMapper _githubRepositoryMapper = new GithubRepositoryMapper();
         public GithubRepositoryManager()
         {
@@ -37,7 +38,51 @@ namespace GitHubRepositoryApp.BL.Manager
             }
             catch(Exception ex)
             {
+                throw;
+            }
 
+            return result;
+        }
+
+        public async Task<IEnumerable<GithubRepositoryDTO>> GetAllRepositories()
+        {
+            var result = new List<GithubRepositoryDTO>();
+            try
+            {
+
+                var data = await _githubRepositoryService.GetAllRepositories();
+                foreach (var item in data)
+                {
+                    var mapped = _githubRepositoryMapper.MapToDTO(item);
+                    result.Add(mapped);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+            return result;
+        }
+
+        public async Task<IEnumerable<GithubRepositoryDTO>> GetByUsername(string username)
+        {
+            var result = new List<GithubRepositoryDTO>();
+            try
+            {
+
+                var data = await _githubRepositoryService.GetByUsername(username);
+                foreach (var item in data)
+                {
+                    var mapped = _githubRepositoryMapper.MapToDTO(item);
+                    result.Add(mapped);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw;
             }
 
             return result;

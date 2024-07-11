@@ -1,16 +1,18 @@
 ﻿using GitHubRepositoryApp.DL.Entity;
+using GitHubRepositoryApp.DL.Interface;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace GitHubRepositoryApp.DL.Service
 {
-    public class GithubRepositoryService
+    public class GithubRepositoryService : IGithubRepositoryService
     {
         private readonly HttpClient _httpClient;
         private string _baseAddress = "https://api.github.com/";
@@ -37,14 +39,8 @@ namespace GitHubRepositoryApp.DL.Service
             try
             {
                 var endpoint = $"search/repositories?q={search}";
-                var res = await this._httpClient.GetAsync(endpoint);
 
-                if (res.IsSuccessStatusCode)
-                {
-                    var result = res.Content.ReadAsStringAsync().Result;
-                    var jsonResponse = JsonConvert.DeserializeObject<GithubSearchResult>(result);
-                    response = jsonResponse.Items;
-                }
+                response = await _getRepositories(endpoint);
 
             }catch( Exception ex )
             {
@@ -54,5 +50,54 @@ namespace GitHubRepositoryApp.DL.Service
             return response;
         }
 
+        public async Task<IEnumerable<GithubRepository>> GetAllRepositories()
+        {
+            IEnumerable<GithubRepository> response = null;
+            try
+            {
+                var endpoint = $"repositories";
+
+                response = await _getRepositories(endpoint);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("An error occurred while getting all repositories", ex);
+            }
+
+            return response;
+        }
+
+        private async Task<IEnumerable<GithubRepository>> _getRepositories(string endpoint)
+        {
+            var res = await this._httpClient.GetAsync(endpoint);
+            IEnumerable<GithubRepository> response = null;
+
+            if (res.IsSuccessStatusCode)
+            {
+                var result = res.Content.ReadAsStringAsync().Result;
+                var jsonResponse = JsonConvert.DeserializeObject<GithubSearchResult>(result);
+                response = jsonResponse.Items;
+            }
+
+            return response;
+        }
+
+        public async Task<IEnumerable<GithubRepository>> GetByUsername(string username)
+        {
+            IEnumerable<GithubRepository> response = null;
+            try
+            {
+                var endpoint = $"users/{username}/repos";
+
+                response = await _getRepositories(endpoint);
+
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("An error occurred while searching for repositories", ex);
+            }
+
+            return response;
+        }
     }
 }

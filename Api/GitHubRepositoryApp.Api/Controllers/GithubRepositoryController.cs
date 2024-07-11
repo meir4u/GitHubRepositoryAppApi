@@ -22,16 +22,17 @@ namespace GitHubRepositoryApp.Api.Controllers
         [HttpGet]
         [Route("GetAll")]
         // GET: api/GithubRepository
-        public IEnumerable<string> GetAll()
+        public async Task<IEnumerable<GithubRepositoryDTO>> GetAll()
         {
-            return new string[] { "value1", "value2" };
+            return await _githubRepositoryManager.GetAllRepositories();
         }
 
         [HttpGet]
+        [Route("{username}")]
         // GET: api/GithubRepository/5
-        public string Get(int id)
+        public async Task<IEnumerable<GithubRepositoryDTO>> GetByUsername([FromUri] string username)
         {
-            return "value";
+            return await _githubRepositoryManager.GetByUsername(username);
         }
 
         [HttpGet]

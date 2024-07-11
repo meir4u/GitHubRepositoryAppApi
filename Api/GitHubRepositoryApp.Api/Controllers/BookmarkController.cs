@@ -7,32 +7,43 @@ using System.Web.Http;
 
 namespace GitHubRepositoryApp.Api.Controllers
 {
-    public class BookmarkController : ApiController
+    [RoutePrefix("api/Bookmark")]
+    public class BookmarkController : BaseSessionController
     {
+        [HttpGet]
+        [Route("GetAll/{sessionId}")]
         // GET: api/Bookmark
-        public IEnumerable<string> Get()
+        public IEnumerable<string> Get(string sessionId)
         {
             return new string[] { "value1", "value2" };
         }
 
+        [HttpGet]
+        [Route("{sessionId}/{id}")]
         // GET: api/Bookmark/5
-        public string Get(int id)
+        public string Get([FromUri] string sessionId, int id)
         {
             return "value";
         }
 
+        [HttpPost]
+        [Route("add/{sessionId}/{id}")]
         // POST: api/Bookmark
-        public void Post([FromBody]string value)
+        public void Add([FromUri] string sessionId, [FromBody]string value)
         {
         }
 
+        [HttpPut]
+        [Route("edit/{sessionId}/{id}")]
         // PUT: api/Bookmark/5
-        public void Put(int id, [FromBody]string value)
+        public void Edit([FromUri] string sessionId, int id, [FromBody]string value)
         {
         }
 
+        [HttpDelete]
+        [Route("edit/{sessionId}/{id}")]
         // DELETE: api/Bookmark/5
-        public void Delete(int id)
+        public void Delete([FromUri] string sessionId, int id)
         {
         }
     }
