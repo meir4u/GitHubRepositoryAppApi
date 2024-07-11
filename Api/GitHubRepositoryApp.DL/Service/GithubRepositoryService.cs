@@ -35,14 +35,23 @@ namespace GitHubRepositoryApp.DL.Service
 
         public async Task<IEnumerable<GithubRepository>> SearchRepositories(string search)
         {
-            IEnumerable<GithubRepository> response = null;
+            IEnumerable<GithubRepository> response = new List<GithubRepository>();
             try
             {
                 var endpoint = $"search/repositories?q={search}";
 
-                response = await _getRepositories(endpoint);
+                var res = await this._httpClient.GetAsync(endpoint);
 
-            }catch( Exception ex )
+                var result = await _getRepositories(endpoint);
+
+                if (string.IsNullOrEmpty(result) == false)
+                {
+                    var jsonResponse = JsonConvert.DeserializeObject<GithubSearchResult>(result);
+                    response = jsonResponse.Items;
+                }
+
+            }
+            catch( Exception ex )
             {
                 throw new ApplicationException("An error occurred while searching for repositories", ex);
             }
@@ -52,12 +61,19 @@ namespace GitHubRepositoryApp.DL.Service
 
         public async Task<IEnumerable<GithubRepository>> GetAllRepositories()
         {
-            IEnumerable<GithubRepository> response = null;
+            IEnumerable<GithubRepository> response = new List<GithubRepository>();
             try
             {
                 var endpoint = $"repositories";
 
-                response = await _getRepositories(endpoint);
+                var res = await this._httpClient.GetAsync(endpoint);
+                var result = await _getRepositories(endpoint);
+
+                if (string.IsNullOrEmpty(result) == false)
+                {
+                    var jsonResponse = JsonConvert.DeserializeObject<List<GithubRepository>>(result);
+                    response = jsonResponse;
+                }
             }
             catch (Exception ex)
             {
@@ -67,29 +83,34 @@ namespace GitHubRepositoryApp.DL.Service
             return response;
         }
 
-        private async Task<IEnumerable<GithubRepository>> _getRepositories(string endpoint)
+        private async Task<string> _getRepositories(string endpoint)
         {
             var res = await this._httpClient.GetAsync(endpoint);
-            IEnumerable<GithubRepository> response = null;
+
+            string result = null;
 
             if (res.IsSuccessStatusCode)
             {
-                var result = res.Content.ReadAsStringAsync().Result;
-                var jsonResponse = JsonConvert.DeserializeObject<GithubSearchResult>(result);
-                response = jsonResponse.Items;
+                result = res.Content.ReadAsStringAsync().Result;
             }
 
-            return response;
+            return result;
         }
 
         public async Task<IEnumerable<GithubRepository>> GetByUsername(string username)
         {
-            IEnumerable<GithubRepository> response = null;
+            IEnumerable<GithubRepository> response = new List<GithubRepository>();
             try
             {
                 var endpoint = $"users/{username}/repos";
 
-                response = await _getRepositories(endpoint);
+                var result = await _getRepositories(endpoint);
+
+                if (string.IsNullOrEmpty(result) == false)
+                {
+                    var jsonResponse = JsonConvert.DeserializeObject<List<GithubRepository>>(result);
+                    response = jsonResponse;
+                }
 
             }
             catch (Exception ex)

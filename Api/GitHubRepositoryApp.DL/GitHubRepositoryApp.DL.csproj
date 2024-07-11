@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entity\Base\ServiceResponseStatus.cs" />
     <Compile Include="Entity\Bookmark.cs" />
     <Compile Include="Entity\EmailGithubRepository.cs" />
     <Compile Include="Entity\GithubRepository.cs" />
