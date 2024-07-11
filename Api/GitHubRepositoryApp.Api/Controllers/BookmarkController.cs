@@ -1,8 +1,10 @@
-﻿using System;
+﻿using GitHubRepositoryApp.BL.Dto;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace GitHubRepositoryApp.Api.Controllers
@@ -13,17 +15,12 @@ namespace GitHubRepositoryApp.Api.Controllers
         [HttpGet]
         [Route("GetAll/{sessionId}")]
         // GET: api/Bookmark
-        public IEnumerable<string> Get(string sessionId)
+        public IEnumerable<GithubRepositoryDTO> Get(string sessionId)
         {
-            return new string[] { "value1", "value2" };
-        }
+            var session = GetSession(sessionId);
+            var repos = session["Repositories"] as List<GithubRepositoryDTO>;
 
-        [HttpGet]
-        [Route("{sessionId}/{id}")]
-        // GET: api/Bookmark/5
-        public string Get([FromUri] string sessionId, int id)
-        {
-            return "value";
+            return repos;
         }
 
         [HttpPost]
@@ -31,13 +28,7 @@ namespace GitHubRepositoryApp.Api.Controllers
         // POST: api/Bookmark
         public void Add([FromUri] string sessionId, [FromBody]string value)
         {
-        }
-
-        [HttpPut]
-        [Route("edit/{sessionId}/{id}")]
-        // PUT: api/Bookmark/5
-        public void Edit([FromUri] string sessionId, int id, [FromBody]string value)
-        {
+            var session = GetSession(sessionId);
         }
 
         [HttpDelete]
@@ -45,6 +36,7 @@ namespace GitHubRepositoryApp.Api.Controllers
         // DELETE: api/Bookmark/5
         public void Delete([FromUri] string sessionId, int id)
         {
+            var session = GetSession(sessionId);
         }
     }
 }

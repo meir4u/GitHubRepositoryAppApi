@@ -44,23 +44,5 @@ namespace GitHubRepositoryApp.Api.Controllers
             return result;
         }
 
-        [HttpPost]
-        [Route("create")]
-        // POST: api/GithubRepository
-        public void Create([FromBody]string value)
-        {
-        }
-
-        [HttpPut]
-        [Route("update")]
-        // PUT: api/GithubRepository/5
-        public void Update(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE: api/GithubRepository/5
-        public void Delete(int id)
-        {
-        }
     }
 }
