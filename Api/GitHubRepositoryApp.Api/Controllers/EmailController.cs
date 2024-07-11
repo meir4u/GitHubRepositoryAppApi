@@ -21,19 +21,12 @@ namespace GitHubRepositoryApp.Api.Controllers
             return "value";
         }
 
+        [HttpPost]
+        [Route("SendEmail")]
         // POST: api/Email
-        public void Post([FromBody]string value)
+        public void SendEmail([FromBody]string value)
         {
         }
 
-        // PUT: api/Email/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE: api/Email/5
-        public void Delete(int id)
-        {
-        }
     }
 }

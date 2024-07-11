@@ -1,4 +1,5 @@
 ﻿using GitHubRepositoryApp.BL.Dto;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,6 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.SessionState;
 
 namespace GitHubRepositoryApp.Api.Controllers
 {
@@ -15,28 +17,72 @@ namespace GitHubRepositoryApp.Api.Controllers
         [HttpGet]
         [Route("GetAll/{sessionId}")]
         // GET: api/Bookmark
-        public IEnumerable<GithubRepositoryDTO> Get(string sessionId)
+        public IHttpActionResult Get(string sessionId)
         {
-            var session = GetSession(sessionId);
-            var repos = session["Repositories"] as List<GithubRepositoryDTO>;
+            try
+            {
+                var session = GetSession(sessionId);
 
-            return repos;
+                var repos = _getRepositoriesFromSession(session);
+
+                return Ok(repos);
+
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
         [Route("add/{sessionId}/{id}")]
         // POST: api/Bookmark
-        public void Add([FromUri] string sessionId, [FromBody]string value)
+        public IHttpActionResult Add([FromUri] string sessionId, [FromBody] GithubRepositoryDTO value)
         {
-            var session = GetSession(sessionId);
+            try
+            {
+                var session = GetSession(sessionId);
+                var repos= _getRepositoriesFromSession(session);
+                repos.Add(value);
+                return Ok();
+
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete]
         [Route("edit/{sessionId}/{id}")]
         // DELETE: api/Bookmark/5
-        public void Delete([FromUri] string sessionId, int id)
+        public IHttpActionResult Delete([FromUri] string sessionId, int id)
         {
-            var session = GetSession(sessionId);
+            try
+            {
+                var session = GetSession(sessionId);
+                var repos = _getRepositoriesFromSession(session);
+                var toDelete = repos.Find(r=>r.Id == id);
+                repos.Remove(toDelete);
+                return Ok();
+
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
+        }
+
+        private List<GithubRepositoryDTO> _getRepositoriesFromSession(HttpSessionState session)
+        {
+            var repos = session["Repositories"] as List<GithubRepositoryDTO>;
+
+            if (repos == null)
+            {
+                repos = new List<GithubRepositoryDTO>();
+                session["Repositories"] = repos;
+            }
+
+            return repos;
         }
     }
 }
