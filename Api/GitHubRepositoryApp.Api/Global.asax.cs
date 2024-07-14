@@ -13,5 +13,14 @@ namespace GitHubRepositoryApp.Api
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
         }
+
+        protected void Application_BeginRequest(object sender, EventArgs e)
+        {
+            var context = HttpContext.Current;
+            if (context.Request.AppRelativeCurrentExecutionFilePath == "~/")
+            {
+                context.Response.Redirect("~/swagger");
+            }
+        }
     }
 }

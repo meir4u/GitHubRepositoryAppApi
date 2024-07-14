@@ -40,6 +40,7 @@ namespace GitHubRepositoryApp.Api.Controllers
         // GET: api/GithubRepository/search?toSearch=somevalue
         public async Task<IEnumerable<GithubRepositoryDTO>> Search([FromUri] string toSearch)
         {
+            //return null;
             var result = await _githubRepositoryManager.SearchRepositories(toSearch);
             return result;
         }

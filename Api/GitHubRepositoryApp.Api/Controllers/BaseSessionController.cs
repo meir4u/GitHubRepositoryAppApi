@@ -14,9 +14,23 @@ namespace GitHubRepositoryApp.Api.Controllers
         protected HttpSessionState GetSession(string sessionId)
         {
             var context = HttpContext.Current;
-            context.Items["AspSession"] = sessionId;
-            var sessionContainer = new HttpSessionStateContainer(sessionId, new SessionStateItemCollection(), new HttpStaticObjectsCollection(), 10, true, HttpCookieMode.UseUri, SessionStateMode.InProc, false);
-            SessionStateUtility.AddHttpSessionStateToContext(context, sessionContainer);
+
+            // Ensure the session ID is correctly set in the context
+            if (context.Session == null || context.Session.SessionID != sessionId)
+            {
+                var sessionContainer = new HttpSessionStateContainer(
+                    sessionId, 
+                    new SessionStateItemCollection(), 
+                    new HttpStaticObjectsCollection(), 
+                    10, 
+                    true, 
+                    HttpCookieMode.UseUri, 
+                    SessionStateMode.InProc, 
+                    false
+                    );
+                SessionStateUtility.AddHttpSessionStateToContext(context, sessionContainer);
+            }
+
             return context.Session;
         }
     }
